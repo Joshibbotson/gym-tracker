@@ -1,27 +1,18 @@
-# GymTracker
+# Gym Tracker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
+Purpose: To allow users to track gym progress in a super simple format.
 
-## Development server
+Todo
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Login/Auth - []
+- form - []
+- github commit like history - []
 
-## Code scaffolding
+Handling auth:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Create an auth service that handles login, logout, register
+- Create an interceptor that attaches sessionID to header under authorisation
+-
+- Login, retrieve sessionID
+- Store sessionID in cookies
+-
