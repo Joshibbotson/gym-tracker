@@ -1,19 +1,19 @@
 <div class="container text-danger" [formGroup]="loginForm">
   <h4>Login</h4>
-  <label for="email">
-    <input
-      formControlName="email"
-      name="email"
-      type="email"
-      placeholder="Email..."
-    />
-  </label>
-  <label for="password">
-    <input
-      formControlName="password"
-      name="password"
-      type="password"
-      placeholder="Password..."
-    />
-  </label>
+  <label for="email"> </label>
+  <input
+    formControlName="email"
+    name="email"
+    type="email"
+    placeholder="Email..."
+  />
+  <label for="password"></label>
+  <input
+    name="password"
+    formControlName="password"
+    type="password"
+    placeholder="Password..."
+  />
+
+  <button (click)="handleLogin()">Login</button>
 </div>
