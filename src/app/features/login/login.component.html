@@ -1,19 +1,28 @@
-<div class="container text-danger" [formGroup]="loginForm">
+<div
+  class="container card d-flex justify-content-center align-items-center"
+  [formGroup]="loginForm"
+>
   <h4>Login</h4>
-  <label for="email"> </label>
-  <input
-    formControlName="email"
-    name="email"
-    type="email"
-    placeholder="Email..."
-  />
-  <label for="password"></label>
-  <input
-    name="password"
-    formControlName="password"
-    type="password"
-    placeholder="Password..."
-  />
+  <div class="container border col justify-content-center align-items-center">
+    <div class="container col">
+      <label for="email">Email</label>
+      <input
+        formControlName="email"
+        name="email"
+        type="email"
+        placeholder="Email..."
+      />
+    </div>
+    <div class="col">
+      <label for="password">Password</label>
+      <input
+        name="password"
+        formControlName="password"
+        type="password"
+        placeholder="Password..."
+      />
+    </div>
+  </div>
 
-  <button (click)="handleLogin()">Login</button>
+  <button class="btn btn-md" (click)="handleLogin()">Login</button>
 </div>
