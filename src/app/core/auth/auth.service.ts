@@ -16,8 +16,6 @@ export class AuthService {
   private readonly http = inject(HttpClient);
 
   login(query: LoginConfig): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/auth/login`, query, {
-      withCredentials: true,
-    });
+    return this.http.post<any>(`${this.apiUrl}/auth/login`, query);
   }
 }

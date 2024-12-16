@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
 import { Subject, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'login',
   standalone: true,
@@ -16,6 +17,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
   authService = inject(AuthService);
+  route = inject(Router);
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
@@ -38,7 +40,9 @@ export class LoginComponent implements OnInit {
         .login({ email, password })
         .pipe(takeUntil(this.$destroy))
         .subscribe({
-          next: (res) => console.log(res),
+          next: () => {
+            this.route.navigate(['/']);
+          },
           error: (err) => console.log('err:', err),
           complete: () => this.loading.set(false),
         });
