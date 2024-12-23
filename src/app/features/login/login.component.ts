@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
 import { Subject, takeUntil } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'login',
   standalone: true,
@@ -27,9 +27,7 @@ export class LoginComponent implements OnInit {
   loading = signal<boolean>(false);
   $destroy = new Subject<void>();
 
-  ngOnInit(): void {
-    console.log('init');
-  }
+  ngOnInit(): void {}
 
   handleLogin(): void {
     const { email, password } = this.loginForm.value;

@@ -8,23 +8,29 @@ import {
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
+/** Intercept and handle credential failure by logging out the user
+ * and redirecting to the login page
+ */
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<any>> => {
   const router = inject(Router);
+  const authService = inject(AuthService);
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
-        handle401Error(router);
+        handle401Error(router, authService);
       }
       return throwError(() => error);
     })
   );
 };
 
-function handle401Error(router: Router): void {
+function handle401Error(router: Router, authService: AuthService): void {
+  authService.logout();
   router.navigate(['/login']);
 }
