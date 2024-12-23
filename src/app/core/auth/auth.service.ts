@@ -1,10 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 
 export type LoginConfig = {
   email: string;
   password: string;
+};
+
+export type LoginResponseDto = {
+  user?: User;
+  validLogin: boolean;
+  message?: string;
 };
 
 type User = {
@@ -30,27 +36,44 @@ export class AuthService {
     this.user.set(user);
   }
 
-  getUserFromLocalStorage(): void {
+  getUserFromLocalStorage(): User | null {
     const user = localStorage.getItem('user');
     if (user) {
       const parsedUser = JSON.parse(user) as User;
-      this.user.set(parsedUser);
+      return parsedUser;
     } else {
-      this.user.set(null);
+      return null;
     }
   }
 
   setUserInLocalStorage(user: User): void {
     const stringifiedUser = JSON.stringify(user);
     localStorage.setItem('user', stringifiedUser);
-    this.user.set(user);
   }
 
-  public login(query: LoginConfig): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/auth/login`, query);
+  handleLogout(): void {
+    localStorage.removeItem('user');
+    this.user.set(null);
+  }
+
+  public login(query: LoginConfig): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/auth/login`, query).pipe(
+      tap((res) => {
+        console.log('login res:', res);
+        this.setUserInLocalStorage(res);
+        this.user.set(res);
+      }),
+      catchError((err) => {
+        console.log('error at login:', err);
+        this.handleLogout();
+        return of(err);
+      })
+    );
   }
 
   public logout(): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/auth/logout`, {});
+    return this.http
+      .post<void>(`${this.apiUrl}/auth/logout`, {})
+      .pipe(tap(() => this.handleLogout()));
   }
 }
