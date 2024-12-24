@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+  <a class="navbar-brand" href="#">Gym Tracker</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div
+    class="collapse navbar-collapse justify-content-end"
+    id="navbarSupportedContent"
+  >
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <!-- make conditional -->
+        <button class="nav-link" (click)="handleLogout()">
+          Logout
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>

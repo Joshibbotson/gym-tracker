@@ -51,7 +51,7 @@ export class AuthService {
     localStorage.setItem('user', stringifiedUser);
   }
 
-  handleLogout(): void {
+  logout(): void {
     localStorage.removeItem('user');
     this.user.set(null);
   }
@@ -65,15 +65,9 @@ export class AuthService {
       }),
       catchError((err) => {
         console.log('error at login:', err);
-        this.handleLogout();
+        this.logout();
         return of(err);
       })
     );
-  }
-
-  public logout(): Observable<void> {
-    return this.http
-      .post<void>(`${this.apiUrl}/auth/logout`, {})
-      .pipe(tap(() => this.handleLogout()));
   }
 }
