@@ -1,0 +1,14 @@
+.measurements-container.activeMeasurements {
+  height: 25rem;
+  overflow: auto;
+}
+.measurements-container {
+  height: 0rem;
+  overflow: hidden;
+  transition: height 300ms ease-in-out;
+}
+
+.measurements-container.hideContainer {
+  height: 0rem;
+  overflow: hidden;
+}

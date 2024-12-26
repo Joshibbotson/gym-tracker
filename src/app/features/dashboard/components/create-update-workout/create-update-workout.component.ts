@@ -21,6 +21,7 @@ export class CreateUpdateWorkoutComponent {
   weightType = signal<'Stone' | 'lbs'>('Stone');
   measurementType = signal<'cm' | 'inches'>('inches');
   loading = signal<boolean>(false);
+  showOptionalMeasurements = signal<boolean>(false);
 
   stone: null | number = null;
   lbs: null | number = null;

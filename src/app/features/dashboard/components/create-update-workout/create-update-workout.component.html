@@ -87,7 +87,11 @@
         }
       </select>
     </div>
-    <div class="d-flex align-items-center justify-content-between">
+
+    <div
+      class="d-flex align-items-center justify-content-between"
+      (click)="showOptionalMeasurements.set(!showOptionalMeasurements())"
+    >
       <h4>Measurements</h4>
       <div>
         <div class="form-check form-check-inline">
@@ -115,100 +119,106 @@
         </div>
       </div>
     </div>
-    <div>
-      <label for="chestSize">Chest Size</label>
-      <div class="d-flex gap-2 align-items-center">
-        <input
-          (change)="
-            measurementType() === 'inches'
-              ? convertInchesToCm('chestSize')
-              : undefined
-          "
-          formControlName="chestSize"
-          type="number"
-          class="form-control"
-        />
-        <span>{{ measurementType() }}</span>
+    <div
+      class="measurements-container"
+      [class.activeMeasurements]="showOptionalMeasurements()"
+      [class.hideContainer]="!showOptionalMeasurements()"
+    >
+      <div>
+        <label for="chestSize">Chest Size</label>
+        <div class="d-flex gap-2 align-items-center">
+          <input
+            (change)="
+              measurementType() === 'inches'
+                ? convertInchesToCm('chestSize')
+                : undefined
+            "
+            formControlName="chestSize"
+            type="number"
+            class="form-control"
+          />
+          <span>{{ measurementType() }}</span>
+        </div>
       </div>
-    </div>
-    <div>
-      <label for="waistSize">Waist Size</label>
-      <div class="d-flex gap-2 align-items-center">
-        <input
-          (change)="
-            measurementType() === 'inches'
-              ? convertInchesToCm('waistSize')
-              : undefined
-          "
-          formControlName="waistSize"
-          type="number"
-          class="form-control"
-        />
-        <span>{{ measurementType() }}</span>
+      <div>
+        <label for="waistSize">Waist Size</label>
+        <div class="d-flex gap-2 align-items-center">
+          <input
+            (change)="
+              measurementType() === 'inches'
+                ? convertInchesToCm('waistSize')
+                : undefined
+            "
+            formControlName="waistSize"
+            type="number"
+            class="form-control"
+          />
+          <span>{{ measurementType() }}</span>
+        </div>
       </div>
-    </div>
-    <div>
-      <label for="bicepSize">Bicep Size</label>
-      <div class="d-flex gap-2 align-items-center">
-        <input
-          (change)="
-            measurementType() === 'inches'
-              ? convertInchesToCm('bicepSize')
-              : undefined
-          "
-          formControlName="bicepSize"
-          type="number"
-          class="form-control"
-        />
-        <span>{{ measurementType() }}</span>
+      <div>
+        <label for="bicepSize">Bicep Size</label>
+        <div class="d-flex gap-2 align-items-center">
+          <input
+            (change)="
+              measurementType() === 'inches'
+                ? convertInchesToCm('bicepSize')
+                : undefined
+            "
+            formControlName="bicepSize"
+            type="number"
+            class="form-control"
+          />
+          <span>{{ measurementType() }}</span>
+        </div>
       </div>
-    </div>
-    <div>
-      <label for="forearmSize">Forearm Size</label>
-      <div class="d-flex gap-2 align-items-center">
-        <input
-          (change)="
-            measurementType() === 'inches'
-              ? convertInchesToCm('forearmSize')
-              : undefined
-          "
-          formControlName="forearmSize"
-          type="number"
-          class="form-control"
-        />
-        <span>{{ measurementType() }}</span>
+      <div>
+        <label for="forearmSize">Forearm Size</label>
+        <div class="d-flex gap-2 align-items-center">
+          <input
+            (change)="
+              measurementType() === 'inches'
+                ? convertInchesToCm('forearmSize')
+                : undefined
+            "
+            formControlName="forearmSize"
+            type="number"
+            class="form-control"
+          />
+          <span>{{ measurementType() }}</span>
+        </div>
       </div>
-    </div>
-    <div>
-      <label for="thighSize">Thigh Size</label>
-      <div class="d-flex gap-2 align-items-center">
-        <input
-          (change)="
-            measurementType() === 'inches'
-              ? convertInchesToCm('thighSize')
-              : undefined
-          "
-          formControlName="thighSize"
-          type="number"
-          class="form-control"
-        />
-        <span>{{ measurementType() }}</span>
+      <div>
+        <label for="thighSize">Thigh Size</label>
+        <div class="d-flex gap-2 align-items-center">
+          <input
+            (change)="
+              measurementType() === 'inches'
+                ? convertInchesToCm('thighSize')
+                : undefined
+            "
+            formControlName="thighSize"
+            type="number"
+            class="form-control"
+          />
+          <span>{{ measurementType() }}</span>
+        </div>
       </div>
-    </div>
-    <div>
-      <label for="calfSize">Calf Size</label>
-      <div class="d-flex gap-2 align-items-center">
-        <input
-          (change)="
-            measurementType() === 'inches'
-              ? convertInchesToCm('calfSize')
-              : undefined
-          "
-          formControlName="calfSize"
-          type="number"
-          class="form-control"
-        />
-        <span>{{ measurementType() }}</span>
+      <div>
+        <label for="calfSize">Calf Size</label>
+        <div class="d-flex gap-2 align-items-center">
+          <input
+            (change)="
+              measurementType() === 'inches'
+                ? convertInchesToCm('calfSize')
+                : undefined
+            "
+            formControlName="calfSize"
+            type="number"
+            class="form-control"
+          />
+          <span>{{ measurementType() }}</span>
+        </div>
       </div>
     </div>
   </form>
