@@ -1,4 +1,7 @@
-@use "bootstrap/scss/bootstrap-grid";
+@import "bootstrap/scss/bootstrap-grid";
+@import "@fortawesome/fontawesome-free/css/all.css";
+/* Importing Bootstrap SCSS file. */
+@import "bootstrap/scss/bootstrap";
 
 $primary: #21252b;
 
@@ -10,6 +13,3 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
-/* Importing Bootstrap SCSS file. */
-@import "bootstrap/scss/bootstrap";

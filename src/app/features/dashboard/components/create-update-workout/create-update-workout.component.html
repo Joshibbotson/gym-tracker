@@ -45,6 +45,7 @@
           placeholder="Stone"
           (change)="handleWeightChange('stone', $event)"
         />
+
         <span>st</span>
         <input
           id="weight-lbs"
@@ -213,5 +214,10 @@
   </form>
 </div>
 <div class="modal-footer">
-  <button class="btn btn-sm">Save</button>
+  <button class="btn btn-sm btn-primary">
+    Save @if (loading()) {
+    <i class="fas fa-spinner fa-spin"></i>
+
+    }
+  </button>
 </div>
