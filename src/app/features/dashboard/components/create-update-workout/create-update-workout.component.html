@@ -1,8 +1,216 @@
 <div class="modal-header">
-  <h1>Create</h1>
+  <h1>{{ workoutToEdit() ? "Edit Workout" : "Record Workout" }}</h1>
 </div>
 <div class="modal-body">
-  <h2>me gusta</h2>
+  <form [formGroup]="workoutForm" class="d-grid gap-3">
+    <div class="form-group">
+      <label for="date">Workout Date</label>
+      <input formControlName="date" type="date" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label class="d-flex justify-content-between" for="weightType"
+        >Weight
+        <div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="weightTypeOptions"
+              id="stone"
+              value="Stone"
+              checked
+              (change)="handleWeightTypeChange('Stone')"
+            />
+            <label class="form-check-label" for="stone">Stone</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="weightTypeOptions"
+              id="lbs"
+              value="lbs"
+              (change)="handleWeightTypeChange('lbs')"
+            />
+            <label class="form-check-label" for="lbs">lbs</label>
+          </div>
+        </div>
+      </label>
+      @if (weightType() === 'Stone') {
+      <div class="d-flex gap-2 align-items-center">
+        <input
+          id="weight-stone"
+          type="number"
+          class="form-control"
+          placeholder="Stone"
+          (change)="handleWeightChange('stone', $event)"
+        />
+        <span>st</span>
+        <input
+          id="weight-lbs"
+          type="number"
+          class="form-control"
+          placeholder="Lbs"
+          (change)="handleWeightChange('lbs', $event)"
+        />
+        <span>lbs</span>
+      </div>
+      } @else {
+      <div class="d-flex gap-2 align-items-center">
+        <input formControlName="weight" type="number" class="form-control" />
+        <span>lbs</span>
+      </div>
+      }
+    </div>
+    <div class="form-group">
+      <label class="form-check-label" for="workoutType">Workout Type</label>
+
+      <select name="workoutType" class="form-select" aria-label="Workout Type">
+        <option selected>Workout Type:</option>
+        @for (type of workoutTypeValues; track $index) {
+        <option [value]="type">{{ type }}</option>
+        }
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-check-label" for="caloriePhase">Calorie Phase</label>
+
+      <select
+        name="caloriePhase"
+        class="form-select"
+        aria-label="Calorie Phase"
+      >
+        <option selected>Calorie Phase:</option>
+        @for (phase of caloriePhaseValues; track $index) {
+        <option [value]="phase">{{ phase }}</option>
+        }
+      </select>
+    </div>
+    <div class="d-flex align-items-center justify-content-between">
+      <h4>Measurements</h4>
+      <div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="measurementTypeOptions"
+            id="inches"
+            value="Inches"
+            checked
+            (change)="handleMeasurementTypeChange('inches')"
+          />
+          <label class="form-check-label" for="inches">Inches</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="measurementTypeOptions"
+            id="cm"
+            value="cm"
+            (change)="handleMeasurementTypeChange('cm')"
+          />
+          <label class="form-check-label" for="cm">cm</label>
+        </div>
+      </div>
+    </div>
+    <div>
+      <label for="chestSize">Chest Size</label>
+      <div class="d-flex gap-2 align-items-center">
+        <input
+          (change)="
+            measurementType() === 'inches'
+              ? convertInchesToCm('chestSize')
+              : undefined
+          "
+          formControlName="chestSize"
+          type="number"
+          class="form-control"
+        />
+        <span>{{ measurementType() }}</span>
+      </div>
+    </div>
+    <div>
+      <label for="waistSize">Waist Size</label>
+      <div class="d-flex gap-2 align-items-center">
+        <input
+          (change)="
+            measurementType() === 'inches'
+              ? convertInchesToCm('waistSize')
+              : undefined
+          "
+          formControlName="waistSize"
+          type="number"
+          class="form-control"
+        />
+        <span>{{ measurementType() }}</span>
+      </div>
+    </div>
+    <div>
+      <label for="bicepSize">Bicep Size</label>
+      <div class="d-flex gap-2 align-items-center">
+        <input
+          (change)="
+            measurementType() === 'inches'
+              ? convertInchesToCm('bicepSize')
+              : undefined
+          "
+          formControlName="bicepSize"
+          type="number"
+          class="form-control"
+        />
+        <span>{{ measurementType() }}</span>
+      </div>
+    </div>
+    <div>
+      <label for="forearmSize">Forearm Size</label>
+      <div class="d-flex gap-2 align-items-center">
+        <input
+          (change)="
+            measurementType() === 'inches'
+              ? convertInchesToCm('forearmSize')
+              : undefined
+          "
+          formControlName="forearmSize"
+          type="number"
+          class="form-control"
+        />
+        <span>{{ measurementType() }}</span>
+      </div>
+    </div>
+    <div>
+      <label for="thighSize">Thigh Size</label>
+      <div class="d-flex gap-2 align-items-center">
+        <input
+          (change)="
+            measurementType() === 'inches'
+              ? convertInchesToCm('thighSize')
+              : undefined
+          "
+          formControlName="thighSize"
+          type="number"
+          class="form-control"
+        />
+        <span>{{ measurementType() }}</span>
+      </div>
+    </div>
+    <div>
+      <label for="calfSize">Calf Size</label>
+      <div class="d-flex gap-2 align-items-center">
+        <input
+          (change)="
+            measurementType() === 'inches'
+              ? convertInchesToCm('calfSize')
+              : undefined
+          "
+          formControlName="calfSize"
+          type="number"
+          class="form-control"
+        />
+        <span>{{ measurementType() }}</span>
+      </div>
+    </div>
+  </form>
 </div>
 <div class="modal-footer">
   <button class="btn btn-sm">Save</button>
