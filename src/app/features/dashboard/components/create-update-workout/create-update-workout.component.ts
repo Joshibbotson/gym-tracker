@@ -11,10 +11,11 @@ import { WorkoutType } from '../../../activities/enums/WorkoutType.enum';
 import { CaloriePhase } from '../../../activities/enums/CaloriePhase.enum';
 import { WorkoutService } from '../../../activities/services/workout.service';
 import { Subject, takeUntil } from 'rxjs';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'create-update-workout',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgbTooltipModule],
   templateUrl: './create-update-workout.component.html',
   styleUrl: './create-update-workout.component.scss',
 })
@@ -60,9 +61,27 @@ export class CreateUpdateWorkoutComponent {
 
   /** if  measurementType == 'inches' use convertInchesToCm()*/
   onWorkoutSave(): void {
+    const isInches = this.measurementType() === 'inches';
+    const workoutValues = this.workoutForm.value;
+    const sizeKeys = [
+      'chestSize',
+      'waistSize',
+      'bicepSize',
+      'forearmSize',
+      'thighSize',
+      'calfSize',
+    ];
+    const convertedWorkoutValues = Object.entries(workoutValues).map((val) => {
+      if (sizeKeys.includes(val[0]) && typeof val[1] === 'number') {
+        val[1] = isInches ? this.convertInchesToCm(val[1]) : val[1];
+      }
+      return val;
+    });
+    const convertedWorkoutObject = Object.fromEntries(convertedWorkoutValues);
+
     this.loading.set(true);
     this.workoutService
-      .createWorkout(this.workoutForm.value)
+      .createWorkout(convertedWorkoutObject as Workout)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => console.log('res:', res),

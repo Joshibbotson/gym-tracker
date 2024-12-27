@@ -1,5 +1,11 @@
-<div class="modal-header">
+<div class="modal-header justify-content-between">
   <h1>{{ workoutToEdit() ? "Edit Workout" : "Record Workout" }}</h1>
+  <i
+    class="fa-solid fa-circle-info fa-lg"
+    data-toggle="tooltip"
+    data-placement="top"
+    title="Every field is optional, fill out what ever works for you."
+  ></i>
 </div>
 <div class="modal-body">
   <form [formGroup]="workoutForm" class="d-grid gap-3">
@@ -66,7 +72,12 @@
     <div class="form-group">
       <label class="form-check-label" for="workoutType">Workout Type</label>
 
-      <select name="workoutType" class="form-select" aria-label="Workout Type">
+      <select
+        formControlName="workoutType"
+        name="workoutType"
+        class="form-select"
+        aria-label="Workout Type"
+      >
         <option selected>Workout Type:</option>
         @for (type of workoutTypeValues; track $index) {
         <option [value]="type">{{ type }}</option>
@@ -80,6 +91,7 @@
         name="caloriePhase"
         class="form-select"
         aria-label="Calorie Phase"
+        formControlName="caloriePhase"
       >
         <option selected>Calorie Phase:</option>
         @for (phase of caloriePhaseValues; track $index) {
