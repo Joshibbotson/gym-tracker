@@ -58,6 +58,7 @@
           type="number"
           class="form-control"
           placeholder="Lbs"
+          [max]="14"
           (change)="handleWeightChange('lbs', $event)"
         />
         <span>lbs</span>

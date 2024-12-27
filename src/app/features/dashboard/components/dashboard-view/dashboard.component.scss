@@ -20,3 +20,10 @@
   box-shadow: 10px 10px 10px #21252b68, 0 2px 2px #21252b68, 0 4px 4px #21252b68,
     0 6px 8px #21252b68, 0 8px 16px #21252b68;
 }
+
+i {
+  transition: rotate 250ms;
+}
+i:hover {
+  rotate: 90deg;
+}
