@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { Workout } from '../../../activities/types/Workout';
 import {
   FormControl,
@@ -9,6 +9,8 @@ import {
 import { format } from 'date-fns';
 import { WorkoutType } from '../../../activities/enums/WorkoutType.enum';
 import { CaloriePhase } from '../../../activities/enums/CaloriePhase.enum';
+import { WorkoutService } from '../../../activities/services/workout.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'create-update-workout',
@@ -18,14 +20,16 @@ import { CaloriePhase } from '../../../activities/enums/CaloriePhase.enum';
 })
 export class CreateUpdateWorkoutComponent {
   workoutToEdit = input<Workout>();
+  workoutService = inject(WorkoutService);
+
   weightType = signal<'Stone' | 'lbs'>('Stone');
   measurementType = signal<'cm' | 'inches'>('inches');
   loading = signal<boolean>(false);
   showOptionalMeasurements = signal<boolean>(false);
+  destroy$ = new Subject<void>();
 
   stone: null | number = null;
   lbs: null | number = null;
-  inches: null | number = null;
 
   WorkoutType = WorkoutType;
   workoutTypeValues = Object.values(WorkoutType);
@@ -49,7 +53,25 @@ export class CreateUpdateWorkoutComponent {
     calfSize: new FormControl(undefined),
   });
 
-  onWorkoutSave(): void {}
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  /** if  measurementType == 'inches' use convertInchesToCm()*/
+  onWorkoutSave(): void {
+    this.loading.set(true);
+    this.workoutService
+      .createWorkout(this.workoutForm.value)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => console.log('res:', res),
+        error: (err) => {
+          console.log('err:', err), this.loading.set(false);
+        },
+        complete: () => this.loading.set(false),
+      });
+  }
 
   handleWeightTypeChange(type: 'Stone' | 'lbs'): void {
     this.weightType.set(type);
@@ -67,15 +89,13 @@ export class CreateUpdateWorkoutComponent {
     const totalLbs = stoneToLbs + additionalLbs;
 
     this.workoutForm.get('weight')?.setValue(totalLbs);
-    console.log(totalLbs);
   }
 
   handleMeasurementTypeChange(measurement: 'inches' | 'cm'): void {
     this.measurementType.set(measurement);
   }
 
-  convertInchesToCm(formControl: string): void {
-    const inchesToCm = (this.inches ?? 0) * 2.54;
-    this.workoutForm.get(formControl)?.setValue(inchesToCm);
+  convertInchesToCm(value: number): number {
+    return (value ?? 0) * 2.54;
   }
 }

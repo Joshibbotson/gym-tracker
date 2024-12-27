@@ -1,8 +1,11 @@
 .measurements-container.activeMeasurements {
-  height: 25rem;
+  height: 26rem;
   overflow: auto;
 }
 .measurements-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   height: 0rem;
   overflow: hidden;
   transition: height 300ms ease-in-out;
@@ -11,4 +14,8 @@
 .measurements-container.hideContainer {
   height: 0rem;
   overflow: hidden;
+}
+
+h4 {
+  cursor: pointer;
 }
