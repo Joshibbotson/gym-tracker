@@ -6,7 +6,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { format } from 'date-fns';
+import {
+  format,
+  parse,
+  setHours,
+  setMilliseconds,
+  setMinutes,
+  setSeconds,
+} from 'date-fns';
 import { WorkoutType } from '../../../activities/enums/WorkoutType.enum';
 import { CaloriePhase } from '../../../activities/enums/CaloriePhase.enum';
 import { WorkoutService } from '../../../activities/services/workout.service';
@@ -77,7 +84,11 @@ export class CreateUpdateWorkoutComponent {
       }
       return val;
     });
-    const convertedWorkoutObject = Object.fromEntries(convertedWorkoutValues);
+
+    const convertedWorkoutObject = {
+      ...Object.fromEntries(convertedWorkoutValues),
+      date: this.convertDateToDateTimeNow(this.workoutForm.get('date')?.value),
+    };
 
     this.loading.set(true);
     this.workoutService
@@ -116,5 +127,24 @@ export class CreateUpdateWorkoutComponent {
 
   convertInchesToCm(value: number): number {
     return (value ?? 0) * 2.54;
+  }
+
+  convertDateToDateTimeNow(dateString: string): Date {
+    // Parse the date string into a Date object
+    const parsedDate = parse(dateString, 'yyyy-MM-dd', new Date());
+
+    // Get the current time
+    const now = new Date();
+
+    // Combine the selected date with the current time
+    const combinedDate = setMilliseconds(
+      setSeconds(
+        setMinutes(setHours(parsedDate, now.getHours()), now.getMinutes()),
+        now.getSeconds()
+      ),
+      now.getMilliseconds()
+    );
+
+    return combinedDate;
   }
 }
