@@ -5,6 +5,7 @@ Purpose: To allow users to track gym progress in a super simple format.
 Todo
 
 - Login/Auth - []
+
 - form - []
 - github commit like history - []
 
