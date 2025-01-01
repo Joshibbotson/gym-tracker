@@ -10,4 +10,8 @@ import { Workout } from '../../types/Workout';
 })
 export class DayComponent {
   workout = input.required<Workout>();
+
+  ngAfterViewInit(): void {
+    console.log(this.workout());
+  }
 }

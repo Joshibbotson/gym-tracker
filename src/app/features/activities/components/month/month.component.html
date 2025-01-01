@@ -1,10 +1,31 @@
 <h4>{{ monthActivity().month | monthFromNumber }}</h4>
 <div class="month-container">
-  @for (workout of monthActivity().workouts; track $index) {
+  <!-- @for (workout of monthActivity().workouts; track $index) {
   <day [workout]="workout" />
-  }
-</div>
-<!-- should show week days 
+  } -->
+
+  <div class="calendar">
+    <div class="weekdays">
+      @for (day of [' ', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', ' ']; track $index)
+      {
+      <span>{{ day }}</span>
+      }
+    </div>
+
+    <div class="weeks">
+      @for (week of calendarGrid; track $index) {
+      <div class="week">
+        @for (workout of week; track $index) { @if (workout) {
+        <day [workout]="workout" />
+        } @else {
+        <div class="day empty"></div>
+        } }
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- should show week days 
  each day should take in a workoutSession or null
  null representing any missed workouts 
  
@@ -13,7 +34,7 @@
  
  data: [
   {
-    year: 2024,
+    year: 2024, 
     months: [
         january: [
           {
@@ -33,3 +54,4 @@
   }
  ]
  -->
+</div>

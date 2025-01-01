@@ -1,4 +1,3 @@
-import { Months } from '../enums/Months.enum';
 import { Workout } from './Workout';
 
 export type YearActivity = {
