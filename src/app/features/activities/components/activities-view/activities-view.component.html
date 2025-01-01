@@ -1,3 +1,11 @@
+<div class="floating-btn" (click)="openCreateWorkoutModal()">
+  <i class="fa-solid fa-plus fa-2x"></i>
+</div>
+
 @for (activity of activites(); track $index) {
 <year [YearActivity]="activity" />
 }
+
+<ng-template #createWorkoutConfig>
+  <create-update-workout (reloadPage)="handlePageRefresh()" />
+</ng-template>

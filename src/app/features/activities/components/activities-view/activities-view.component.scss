@@ -1,0 +1,29 @@
+.floating-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 100%;
+  position: fixed;
+  right: 2rem;
+  bottom: 3rem;
+  color: white;
+  background-color: #21252b;
+  box-shadow: 0 1px 1px #21252b68, 0 2px 2px #21252b68, 0 4px 4px #21252b68,
+    0 6px 8px #21252b68, 0 8px 16px #21252b68;
+  transition: 250ms;
+  cursor: pointer;
+}
+
+.floating-btn:hover {
+  box-shadow: 10px 10px 10px #21252b68, 0 2px 2px #21252b68, 0 4px 4px #21252b68,
+    0 6px 8px #21252b68, 0 8px 16px #21252b68;
+}
+
+i {
+  transition: rotate 250ms;
+}
+i:hover {
+  rotate: 90deg;
+}

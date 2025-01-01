@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { Workout } from '../../../activities/types/Workout';
 import {
   FormControl,
@@ -28,6 +28,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CreateUpdateWorkoutComponent {
   workoutToEdit = input<Workout>();
+  reloadPage = output<void>();
   workoutService = inject(WorkoutService);
 
   weightType = signal<'Stone' | 'lbs'>('Stone');
@@ -95,7 +96,7 @@ export class CreateUpdateWorkoutComponent {
       .createWorkout(convertedWorkoutObject as Workout)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (res) => console.log('res:', res),
+        next: () => this.reloadPage.emit(),
         error: (err) => {
           console.log('err:', err), this.loading.set(false);
         },
@@ -130,13 +131,8 @@ export class CreateUpdateWorkoutComponent {
   }
 
   convertDateToDateTimeNow(dateString: string): Date {
-    // Parse the date string into a Date object
     const parsedDate = parse(dateString, 'yyyy-MM-dd', new Date());
-
-    // Get the current time
     const now = new Date();
-
-    // Combine the selected date with the current time
     const combinedDate = setMilliseconds(
       setSeconds(
         setMinutes(setHours(parsedDate, now.getHours()), now.getMinutes()),

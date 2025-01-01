@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>{{ YearActivity().year }}</h1>
+  <h1 class="mt-3">{{ YearActivity().year }}</h1>
   @for (monthActivity of YearActivity().months; track $index) {
 
   <month [monthActivity]="monthActivity" />
