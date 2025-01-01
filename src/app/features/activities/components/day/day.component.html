@@ -1,7 +1,7 @@
-@if (workout().config === null) {
+@if (!workout().workoutConfig) {
 
-<div class="square active"></div>
-}@else {
 <div class="square"></div>
+}@else {
+<div class="square active"></div>
 
 }

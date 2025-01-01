@@ -1,8 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { YearComponent } from '../year/year.component';
-import { Activities } from '../../types/Activities';
 import { WorkoutService } from '../../services/workout.service';
 import { Subject, takeUntil } from 'rxjs';
+import { YearActivity } from '../../types/Activities';
 
 /**
  * should fetch user's activities on load
@@ -15,7 +15,7 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrl: './activities-view.component.scss',
 })
 export class ActivitiesViewComponent implements OnInit {
-  activites = signal<Activities | null>(null);
+  activites = signal<YearActivity[] | null>(null);
   private readonly workoutService = inject(WorkoutService);
   private readonly destroy$ = new Subject<void>();
 
