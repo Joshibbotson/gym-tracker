@@ -3,6 +3,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.2rem;
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 575.98px) {
@@ -12,13 +13,28 @@
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
+  .month-container {
+    width: 20rem;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
+  .month-container {
+    width: 30rem;
+    gap: 0.3rem;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
+  .month-container {
+    width: 40rem;
+    gap: 0.4rem;
+  }
 }
 
 @media (min-width: 1200px) {
+  .month-container {
+    width: 50rem;
+    gap: 0.5rem;
+  }
 }

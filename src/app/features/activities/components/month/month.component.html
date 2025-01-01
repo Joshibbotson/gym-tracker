@@ -1,4 +1,4 @@
-<h4>{{ monthActivity().month }}</h4>
+<h4>{{ monthActivity().month | titlecase }}</h4>
 <div class="month-container">
   @for (workout of monthActivity().workouts; track $index) {
   <day [workout]="workout" />
