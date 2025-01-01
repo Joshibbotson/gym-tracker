@@ -4,35 +4,8 @@ import { Workout } from '../types/Workout';
 import { Observable, of } from 'rxjs';
 import { WorkoutType } from '../enums/WorkoutType.enum';
 import { CaloriePhase } from '../enums/CaloriePhase.enum';
-
-type Activities = {
-  data: YearActivities[];
-};
-
-type YearActivities = {
-  year: number;
-  months: MonthActivities[];
-};
-
-type MonthActivities = {
-  month: Months;
-  workouts: Workout[];
-};
-
-enum Months {
-  JANUARY = 'january',
-  FEBRUARY = 'february',
-  MARCH = 'march',
-  APRIL = 'april',
-  MAY = 'may',
-  JUNE = 'june',
-  JULY = 'july',
-  AUGUST = 'august',
-  SEPTEMBER = 'september',
-  OCTOBER = 'october',
-  NOVEMBER = 'november',
-  DECEMBER = 'december',
-}
+import { Months } from '../enums/Months.enum';
+import { Activities } from '../types/Activities';
 
 @Injectable({
   providedIn: 'root',
@@ -44,45 +17,37 @@ export class WorkoutService {
     data: [
       {
         year: 2024,
-        months: [
-          {
-            month: Months.JANUARY,
-            workouts: [
-              {
-                date: new Date('2024-01-01T00:00:00Z'),
-                config: null,
-              },
-              {
-                date: new Date('2024-01-02T00:00:00Z'),
-                config: {
-                  weight: 175,
-                  workoutType: WorkoutType.PUSH,
-                  caloriePhase: CaloriePhase.CUT,
-                },
-              },
-              {
-                date: new Date('2024-01-03T00:00:00Z'),
-                config: {
-                  weight: 180,
-                  workoutType: WorkoutType.PULL,
-                  caloriePhase: CaloriePhase.CUT,
-                },
-              },
-              {
-                date: new Date('2024-01-04T00:00:00Z'),
-                config: null,
-              },
-              {
-                date: new Date('2024-01-05T00:00:00Z'),
-                config: {
-                  weight: 170,
-                  workoutType: WorkoutType.LEGS,
-                  caloriePhase: CaloriePhase.CUT,
-                },
-              },
-            ],
-          },
-        ],
+        months: Array.from({ length: 12 }, (_, monthIndex) => {
+          const month = monthIndex + 1;
+          const daysInMonth = new Date(2024, month, 0).getDate(); // Get days in the month
+          return {
+            month: Object.values(Months)[monthIndex],
+            workouts: Array.from({ length: daysInMonth }, (_, dayIndex) => {
+              const day = dayIndex + 1;
+              return {
+                date: new Date(
+                  `2024-${month.toString().padStart(2, '0')}-${day
+                    .toString()
+                    .padStart(2, '0')}T00:00:00Z`
+                ),
+                config:
+                  day % 2 === 0
+                    ? {
+                        weight: 170 + ((day + month) % 5),
+                        workoutType:
+                          Object.values(WorkoutType)[
+                            day % Object.values(WorkoutType).length
+                          ],
+                        caloriePhase:
+                          Object.values(CaloriePhase)[
+                            day % Object.values(CaloriePhase).length
+                          ],
+                      }
+                    : null,
+              };
+            }),
+          };
+        }),
       },
     ],
   };

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MonthComponent } from '../month/month.component';
+import { YearActivity } from '../../types/Activities';
 
 @Component({
   selector: 'year',
@@ -9,6 +10,8 @@ import { MonthComponent } from '../month/month.component';
   styleUrl: './year.component.scss',
 })
 export class YearComponent {
+  YearActivity = input.required<YearActivity>();
+
   readonly year = [
     'January',
     'February',

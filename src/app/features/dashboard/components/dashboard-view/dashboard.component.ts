@@ -1,10 +1,11 @@
 import { Component, inject, viewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateUpdateWorkoutComponent } from '../create-update-workout/create-update-workout.component';
+import { ActivitiesViewComponent } from '../../../activities/components/activities-view/activities-view.component';
 
 @Component({
   selector: 'dashboard',
-  imports: [CreateUpdateWorkoutComponent],
+  imports: [CreateUpdateWorkoutComponent, ActivitiesViewComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })

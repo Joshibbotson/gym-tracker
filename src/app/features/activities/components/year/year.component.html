@@ -1,6 +1,7 @@
 <div class="container">
-  @for (month of year; track $index) {
+  <h1>{{ YearActivity().year }}</h1>
+  @for (monthActivity of YearActivity().months; track $index) {
 
-  <month />
+  <month [monthActivity]="monthActivity" />
   }
 </div>

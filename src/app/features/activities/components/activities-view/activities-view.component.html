@@ -1,2 +1,3 @@
-<p>activities-view works!</p>
-<year />
+@for (activity of activites()?.data; track $index) {
+<year [YearActivity]="activity" />
+}

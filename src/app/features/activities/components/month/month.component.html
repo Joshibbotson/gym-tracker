@@ -1,4 +1,9 @@
-<p>month works!</p>
+<h4>{{ monthActivity().month }}</h4>
+<div class="month-container">
+  @for (workout of monthActivity().workouts; track $index) {
+  <day [workout]="workout" />
+  }
+</div>
 <!-- should show week days 
  each day should take in a workoutSession or null
  null representing any missed workouts 
@@ -27,6 +32,4 @@
       ]
   }
  ]
-
-We'll need to 
  -->
