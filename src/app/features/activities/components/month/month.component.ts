@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, SimpleChanges } from '@angular/core';
 import { MonthActivity } from '../../types/Activities';
 import { DayComponent } from '../day/day.component';
 import { MonthFromNumberPipe } from '../../../../core/pipes/month-from-number.pipe';
@@ -21,10 +21,16 @@ import { Workout } from '../../types/Workout';
 export class MonthComponent {
   monthActivity = input.required<MonthActivity>();
 
-  calendarGrid: (Workout | null)[][] = [];
+  calendarGrid: (Workout[] | null)[][] = [];
 
   ngOnInit() {
     this.generateCalendar();
+  }
+
+  ngOnChanges(simpleChanges: SimpleChanges) {
+    if (simpleChanges['monthActivity']) {
+      this.generateCalendar();
+    }
   }
 
   generateCalendar() {
@@ -40,17 +46,28 @@ export class MonthComponent {
     const daysInMonth = eachDayOfInterval({ start: firstDay, end: lastDay });
 
     // Create an empty grid (6 weeks x 7 days to cover edge cases)
-    const grid: (Workout | null)[][] = Array.from({ length: 6 }, () =>
+    const grid: (Workout[] | null)[][] = Array.from({ length: 6 }, () =>
       Array(7).fill(null)
     );
 
     // Map workouts to their respective dates
-    const workoutMap = new Map(
-      workouts.map((workout) => [
-        format(new Date(workout.date), 'yyyy-MM-dd'),
-        workout,
-      ])
-    );
+    const workoutMap: Map<string, Workout[]> = new Map();
+    // workouts.map((workout) => [
+    //   format(new Date(workout.date), 'yyyy-MM-dd'),
+    //   workout,
+    // ])
+
+    for (let i = 0; i < workouts.length; i++) {
+      const key = format(new Date(workouts[i].date), 'yyyy-MM-dd');
+      const existingWorkouts = workoutMap.get(key);
+      if (existingWorkouts) {
+        workoutMap.set(key, [...existingWorkouts, workouts[i]]);
+      } else {
+        workoutMap.set(key, [workouts[i]]);
+      }
+    }
+
+    console.log('workoutMap:', workoutMap);
 
     // Fill the grid
     let weekIndex = 0;
@@ -66,7 +83,7 @@ export class MonthComponent {
         weekIndex++;
       }
     }
-
+    // console.log('grid:', grid);
     this.calendarGrid = grid;
   }
 }

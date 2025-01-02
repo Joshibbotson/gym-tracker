@@ -1,57 +1,24 @@
-<h4>{{ monthActivity().month | monthFromNumber }}</h4>
 <div class="month-container">
-  <!-- @for (workout of monthActivity().workouts; track $index) {
-  <day [workout]="workout" />
-  } -->
-
-  <div class="calendar">
-    <div class="weekdays">
-      @for (day of [' ', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', ' ']; track $index)
-      {
-      <span>{{ day }}</span>
-      }
-    </div>
-
-    <div class="weeks">
-      @for (week of calendarGrid; track $index) {
-      <div class="week">
-        @for (workout of week; track $index) { @if (workout) {
-        <day [workout]="workout" />
-        } @else {
-        <div class="day empty"></div>
-        } }
+  <div>
+    <h4>{{ monthActivity().month | monthFromNumber }}</h4>
+    <div class="calendar">
+      <div class="weekdays">
+        @for (day of ['S', 'M', 'T', 'W', 'T', 'F', 'S']; track $index) {
+        <span>{{ day }}</span>
+        }
       </div>
-      }
+
+      <div class="weeks">
+        @for (week of calendarGrid; track $index) {
+        <div class="week">
+          @for (workout of week; track $index) { @if (workout) {
+          <day [workout]="workout" />
+          } @else {
+          <div class="day empty"></div>
+          } }
+        </div>
+        }
+      </div>
     </div>
   </div>
-
-  <!-- should show week days 
- each day should take in a workoutSession or null
- null representing any missed workouts 
- 
- we can do an aggregation on the backend and fill in any missing 
- workouts with a blank date
- 
- data: [
-  {
-    year: 2024, 
-    months: [
-        january: [
-          {
-            date: 02/01/2024
-            workoutConfig: null
-          }
-          {
-            date: 02/01/2024
-            workoutConfig: {
-              weight: 175 (store in lbs),
-              workoutType: Push (could use an enum here),
-              caloriePhase: Cut (enum of cut, bulk, maintain)
-            }
-          }
-        ]
-      ]
-  }
- ]
- -->
 </div>

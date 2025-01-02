@@ -18,4 +18,8 @@ export class WorkoutService {
   public getActivities(): Observable<YearActivity[]> {
     return this.http.get<YearActivity[]>(`${this.apiUrl}/workout`);
   }
+
+  public getWorkoutById(_id: string): Observable<Workout> {
+    return this.http.get<Workout>(`${this.apiUrl}/workout/${_id}`);
+  }
 }

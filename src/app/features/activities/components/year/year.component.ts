@@ -11,19 +11,4 @@ import { YearActivity } from '../../types/Activities';
 })
 export class YearComponent {
   YearActivity = input.required<YearActivity>();
-
-  readonly year = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
 }

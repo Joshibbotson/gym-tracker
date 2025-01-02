@@ -1,7 +1,8 @@
-<div class="container">
-  <h1 class="mt-3">{{ YearActivity().year }}</h1>
+<div
+  class="mt-3 d-flex flex-column align-items-center justify-content-sm-center align-items-lg-start"
+>
+  <h3 class="year-title">{{ YearActivity().year }}</h3>
   @for (monthActivity of YearActivity().months; track $index) {
-
   <month [monthActivity]="monthActivity" />
   }
 </div>
