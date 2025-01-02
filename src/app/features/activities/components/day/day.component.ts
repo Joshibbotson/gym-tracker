@@ -1,7 +1,6 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Workout } from '../../types/Workout';
-import { WorkoutService } from '../../services/workout.service';
-import { Subject, takeUntil } from 'rxjs';
+import { SelectedWorkoutsService } from '../../services/selected-workouts.service';
 
 @Component({
   selector: 'day',
@@ -11,14 +10,12 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrl: './day.component.scss',
 })
 export class DayComponent {
-  workout = input.required<Workout[]>();
-  loading = signal<boolean>(false);
-  $destroy = new Subject<void>();
+  workouts = input.required<Workout[]>();
+  selectedWorkoutsService = inject(SelectedWorkoutsService);
 
-  ngOnDestroy(): void {
-    this.$destroy.next();
-    this.$destroy.complete();
+  handleWorkoutClick() {
+    this.selectedWorkoutsService.selectedWorkouts = this.workouts();
+
+    console.log(this.selectedWorkoutsService.selectedWorkouts);
   }
-
-  handleWorkoutClick() {}
 }

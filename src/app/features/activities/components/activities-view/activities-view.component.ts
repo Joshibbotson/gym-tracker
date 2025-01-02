@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { YearActivity } from '../../types/Activities';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateUpdateWorkoutComponent } from '../../../dashboard/components/create-update-workout/create-update-workout.component';
+import { SelectedWorkoutsService } from '../../services/selected-workouts.service';
 
 /**
  * should fetch user's activities on load
@@ -19,7 +20,9 @@ import { CreateUpdateWorkoutComponent } from '../../../dashboard/components/crea
 export class ActivitiesViewComponent implements OnInit {
   activites = signal<YearActivity[] | null>(null);
   private readonly workoutService = inject(WorkoutService);
+  private readonly selectedWorkoutsService = inject(SelectedWorkoutsService);
   private readonly modalService = inject(NgbModal);
+
   private readonly destroy$ = new Subject<void>();
   createWorkoutConfig = viewChild('createWorkoutConfig');
 

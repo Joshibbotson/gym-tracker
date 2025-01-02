@@ -11,8 +11,8 @@
       <div class="weeks">
         @for (week of calendarGrid; track $index) {
         <div class="week">
-          @for (workout of week; track $index) { @if (workout) {
-          <day [workout]="workout" />
+          @for (workouts of week; track $index) { @if (workouts) {
+          <day [workouts]="workouts" />
           } @else {
           <div class="day empty"></div>
           } }
