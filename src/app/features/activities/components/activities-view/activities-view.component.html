@@ -4,6 +4,10 @@
 <div>
   @for (activity of activites(); track $index) {
   <year [YearActivity]="activity" />
+  } @if (selectedWorkoutsService.selectedWorkouts; as workouts) {
+  <div class="workout-details-container" [ngClass]="{ active: workouts }">
+    <workout-details [workouts]="workouts" />
+  </div>
   }
 </div>
 

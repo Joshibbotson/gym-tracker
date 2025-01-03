@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { SelectedWorkoutsService } from '../../services/selected-workouts.service';
+import { Workout } from '../../types/Workout';
 
 @Component({
   selector: 'workout-details',
@@ -8,5 +9,5 @@ import { SelectedWorkoutsService } from '../../services/selected-workouts.servic
   styleUrl: './workout-details.component.scss',
 })
 export class WorkoutDetailsComponent {
-  selectedWorkoutsService = inject(SelectedWorkoutsService);
+  workouts = input.required<Workout[]>();
 }

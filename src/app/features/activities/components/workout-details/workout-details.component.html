@@ -1,1 +1,21 @@
-<p>workout-details works!</p>
+<div class="card">
+  @for (workout of workouts(); track $index) { @if (workout.workoutConfig; as
+  config) {
+  <h4>{{ workout.date }}</h4>
+
+  @if (config.weight) {
+  <p>{{ config.weight }}</p>
+  } @if (config.workoutType) {
+  <p>{{ config.workoutType }}</p>
+  } @if (config.caloriePhase) {
+  <p>{{ config.caloriePhase }}</p>
+  } @if (config.bicepSize) {
+  <p>{{ config.bicepSize }}</p>
+  } @if (config.waistSize) {
+  <p>{{ config.waistSize }}</p>
+  } @if (config.calfSize) {
+  <p>{{ config.calfSize }}</p>
+  } @if (config.forearmSize) {
+  <p>{{ config.forearmSize }}</p>
+  } } }
+</div>

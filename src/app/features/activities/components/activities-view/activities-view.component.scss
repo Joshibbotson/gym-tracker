@@ -27,3 +27,19 @@ i {
 i:hover {
   rotate: 90deg;
 }
+
+.workout-details-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(100%); /* Start off-screen */
+  opacity: 0;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.workout-details-container.active {
+  transform: translateY(0); /* Slide up into view */
+  opacity: 1;
+  z-index: 1000; /* Ensure it's above other content */
+}
