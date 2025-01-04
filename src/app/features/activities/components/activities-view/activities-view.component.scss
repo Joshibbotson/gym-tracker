@@ -41,5 +41,5 @@ i:hover {
 .workout-details-container.active {
   transform: translateY(0); /* Slide up into view */
   opacity: 1;
-  z-index: 1000; /* Ensure it's above other content */
+  z-index: 10; /* Ensure it's above other content */
 }
