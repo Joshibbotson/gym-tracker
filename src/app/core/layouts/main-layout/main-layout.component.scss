@@ -1,9 +1,12 @@
 @import "../../../../styles.scss";
 
+.main-container {
+  padding-top: 5rem; // ensure dashboard is under nav.
+}
+
 @media (prefers-color-scheme: dark) {
   .main-container {
     background-color: $bgDark;
     color: $offWhite;
-    padding-top: 5rem; // ensure dashboard is under nav.
   }
 }

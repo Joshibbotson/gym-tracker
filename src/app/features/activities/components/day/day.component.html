@@ -1,11 +1,19 @@
 @if (!workouts()[0].workoutConfig) {
 
-<div class="square"></div>
+<div class="square">
+  <div class="show-day">
+    {{ workouts()[0].date | date : "d" }}
+  </div>
+</div>
 }@else {
 <div
   (click)="handleWorkoutClick()"
   class="square active cursor-pointer"
   id="active-day"
-></div>
+>
+  <div class="show-day">
+    {{ workouts()[0].date | date : "d" }}
+  </div>
+</div>
 
 }

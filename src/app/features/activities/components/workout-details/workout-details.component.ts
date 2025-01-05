@@ -2,10 +2,11 @@ import { Component, HostListener, inject, input } from '@angular/core';
 import { Workout } from '../../types/Workout';
 import { DatePipe } from '@angular/common';
 import { SelectedWorkoutsService } from '../../services/selected-workouts.service';
+import { WorkoutDetailsTabComponent } from '../workout-details-tab/workout-details-tab.component';
 
 @Component({
   selector: 'workout-details',
-  imports: [DatePipe],
+  imports: [DatePipe, WorkoutDetailsTabComponent],
   templateUrl: './workout-details.component.html',
   styleUrl: './workout-details.component.scss',
 })
@@ -26,4 +27,8 @@ export class WorkoutDetailsComponent {
   }
 
   workouts = input.required<Workout[]>();
+
+  closeWorkoutDetails() {
+    this.selectedWorkoutsService.selectedWorkouts = undefined;
+  }
 }

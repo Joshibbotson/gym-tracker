@@ -3,8 +3,13 @@
 .square {
   width: 1rem;
   height: 1rem;
-  background-color: $lightGrey;
+  background-color: $lightestGrey;
   border-radius: 0.3rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $primary;
 }
 
 .square.active {
@@ -13,6 +18,17 @@
 
 .square.active:hover {
   filter: brightness(120%);
+}
+
+.show-day {
+  display: none;
+  font-size: 0.8rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.square:hover .show-day {
+  display: flex;
 }
 
 @media (max-width: 575.98px) {
@@ -47,5 +63,12 @@
   .square {
     width: 2.5rem;
     height: 2.5rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .square {
+    background-color: $lightGrey;
+    color: $placeHolderOffWhite;
   }
 }

@@ -17,3 +17,4 @@ Purpose: To allow users to track gym progress in a super simple format.
 - Add a streak icon in the navbar - []
 - Allow users to pick activity colours - []
 - Progressive shades for higher amount of workouts per day... or for more fields filled on a form? Object.Keys(workoutConfig) > 3 etc, progressive shade - []
+- click on empty square, instantly pop form on selected date.

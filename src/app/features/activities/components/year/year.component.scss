@@ -1,7 +1,14 @@
 @import "../../../../../styles.scss";
 
 .year-title {
-  color: $offWhite;
+  color: $primary;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid $offWhite;
+  border-bottom: 2px solid $primary;
+}
+
+@media (prefers-color-scheme: dark) {
+  .year-title {
+    color: $offWhite;
+    border-bottom: 2px solid $offWhite;
+  }
 }

@@ -1,23 +1,90 @@
 <!-- Need to rework this component -->
 
 <div class="card" id="workout-details">
+  <button (click)="closeWorkoutDetails()" class="close-btn">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
   @for (workout of workouts(); track $index) { @if (workout.workoutConfig; as
   config) {
-  <h4>{{ workout.date | date : "d/M/yy, h:mm a" }}</h4>
+  <h1>Workout {{ $index + 1 }}</h1>
+
+  <div class="d-flex align-items-center justify-content-between">
+    <div>{{ workout.date | date : "MMM d, y, h:mm a" }}</div>
+  </div>
+  <button class="btn btn-secondary">Edit</button>
 
   @if (config.weight) {
-  <p>Weight: {{ config.weight }} lbs</p>
+  <workout-details-tab
+    [info]="{
+      icon: 'fa-weight-scale',
+      title: 'Weight',
+      data: config.weight,
+      measurement: 'lbs'
+    }"
+  />
+
   } @if (config.workoutType) {
-  <p>Workout Type: {{ config.workoutType }}</p>
+  <workout-details-tab
+    [info]="{
+      icon: 'fa-dumbbell',
+      title: 'Workout Type',
+      data: config.workoutType,
+      measurement: ''
+    }"
+  />
   } @if (config.caloriePhase) {
-  <p>Calorie Phase: {{ config.caloriePhase }}</p>
+  <workout-details-tab
+    [info]="{
+      icon: 'fa-utensils',
+      title: 'Calorie Phase',
+      data: config.caloriePhase,
+      measurement: ''
+    }"
+  />
   } @if (config.bicepSize) {
-  <p>Bicep Size: {{ config.bicepSize }}</p>
+  <workout-details-tab
+    [info]="{
+      icon: 'fa-hand-fist',
+      title: 'Bicep Size',
+      data: config.bicepSize,
+      measurement: 'cm'
+    }"
+  />
   } @if (config.waistSize) {
-  <p>Waist Size: {{ config.waistSize }}</p>
+  <workout-details-tab
+    [info]="{
+      icon: 'fa-hand-fist',
+      title: 'Waist Size',
+      data: config.waistSize,
+      measurement: 'cm'
+    }"
+  />
   } @if (config.calfSize) {
-  <p>Calf Size: {{ config.calfSize }}</p>
+  <workout-details-tab
+    [info]="{
+      icon: 'fa-hand-fist',
+      title: 'Calf Size',
+      data: config.calfSize,
+      measurement: 'cm'
+    }"
+  />
   } @if (config.forearmSize) {
-  <p>Forearm Size: {{ config.forearmSize }}</p>
+  <workout-details-tab
+    [info]="{
+      icon: 'fa-hand-fist',
+      title: 'Bicep Size',
+      data: config.forearmSize,
+      measurement: 'cm'
+    }"
+  />
+  } @if (config.thighSize) {
+  <workout-details-tab
+    [info]="{
+      icon: 'fa-hand-fist',
+      title: 'Thigh Size',
+      data: config.thighSize,
+      measurement: 'cm'
+    }"
+  />
   } } }
 </div>
