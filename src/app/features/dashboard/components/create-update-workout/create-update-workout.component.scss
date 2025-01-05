@@ -39,5 +39,8 @@ i {
       background-color: $lightGrey;
       color: $offWhite;
     }
+    input::placeholder {
+      color: $placeHolderOffWhite;
+    }
   }
 }

@@ -6,3 +6,19 @@
   max-height: 40rem;
   overflow: auto;
 }
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .card {
+    max-height: none;
+    height: calc(100vh - 72px); //72px is height of navbar
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card {
+    max-height: none;
+    height: calc(100vh - 72px); //72px is height of navbar
+    margin-right: 0;
+  }
+}

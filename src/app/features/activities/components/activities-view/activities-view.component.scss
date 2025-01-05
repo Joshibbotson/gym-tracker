@@ -33,13 +33,51 @@ i:hover {
   bottom: 0;
   left: 0;
   width: 100%;
-  transform: translateY(100%); /* Start off-screen */
+  transform: translateY(100%);
   opacity: 0;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: transform 250ms ease-in, opacity 250ms ease-in;
 }
 
 .workout-details-container.active {
-  transform: translateY(0); /* Slide up into view */
+  transform: translateY(0%);
   opacity: 1;
-  z-index: 10; /* Ensure it's above other content */
+  z-index: 10;
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .workout-details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transform: translateX(100%);
+    top: 0;
+    bottom: auto;
+    left: auto;
+    right: 0;
+    height: 100%;
+    width: 50%;
+  }
+
+  .workout-details-container.active {
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 1200px) {
+  .workout-details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transform: translateX(100%);
+    top: 0;
+    bottom: auto;
+    left: auto;
+    right: 0;
+    height: 100%;
+    width: 50%;
+  }
+
+  .workout-details-container.active {
+    transform: translateX(0);
+  }
 }

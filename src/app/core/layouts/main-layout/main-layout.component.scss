@@ -4,5 +4,6 @@
   .main-container {
     background-color: $bgDark;
     color: $offWhite;
+    padding-top: 5rem; // ensure dashboard is under nav.
   }
 }

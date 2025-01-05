@@ -1,12 +1,12 @@
 @import "bootstrap/scss/bootstrap-grid";
 @import "@fortawesome/fontawesome-free/css/all.css";
-/* Importing Bootstrap SCSS file. */
 @import "bootstrap/scss/bootstrap";
 
 $primary: #21252b;
 $lightGrey: rgb(23, 26, 34);
 $bgDark: rgb(13, 17, 22);
 $offWhite: rgb(212, 212, 212);
+$placeHolderOffWhite: rgb(159, 157, 157);
 
 html,
 body {

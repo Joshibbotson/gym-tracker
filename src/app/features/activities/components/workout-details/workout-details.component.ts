@@ -14,9 +14,16 @@ export class WorkoutDetailsComponent {
   @HostListener('window:click', ['$event'])
   handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    if (target.id !== 'workout-details' && target.id !== 'active-day') {
+    const workoutDetailsElement = document.getElementById('workout-details');
+
+    if (
+      workoutDetailsElement &&
+      !workoutDetailsElement.contains(target) &&
+      target.id !== 'active-day'
+    ) {
       this.selectedWorkoutsService.selectedWorkouts = undefined;
     }
   }
+
   workouts = input.required<Workout[]>();
 }
