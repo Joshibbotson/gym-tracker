@@ -7,7 +7,7 @@ Purpose: To allow users to track gym progress in a super simple format.
 - Login/Auth - [x]
 - form - [x]
 - github commit like history - [x]
-- Details shown on click - []
+- Details shown on click - [x]
 - Edit workout btn when viewing details - []
 - Show days (mon,tue,wed...) for each month - [x]
 - Deploy - []
