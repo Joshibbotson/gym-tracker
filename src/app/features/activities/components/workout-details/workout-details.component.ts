@@ -3,6 +3,8 @@ import { Workout } from '../../types/Workout';
 import { DatePipe } from '@angular/common';
 import { SelectedWorkoutsService } from '../../services/selected-workouts.service';
 import { WorkoutDetailsTabComponent } from '../workout-details-tab/workout-details-tab.component';
+import { WorkoutService } from '../../services/workout.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'workout-details',
@@ -11,7 +13,10 @@ import { WorkoutDetailsTabComponent } from '../workout-details-tab/workout-detai
   styleUrl: './workout-details.component.scss',
 })
 export class WorkoutDetailsComponent {
+  workouts = input.required<Workout[]>();
   selectedWorkoutsService = inject(SelectedWorkoutsService);
+  workoutService = inject(WorkoutService);
+  destroy$ = new Subject<void>();
   @HostListener('window:click', ['$event'])
   handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
@@ -26,9 +31,23 @@ export class WorkoutDetailsComponent {
     }
   }
 
-  workouts = input.required<Workout[]>();
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   closeWorkoutDetails() {
     this.selectedWorkoutsService.selectedWorkouts = undefined;
+  }
+
+  handleDeleteWorkout(_id: string) {
+    this.workoutService
+      .deleteWorkout(_id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => console.log('deleted'),
+        error: (err) => console.log(err),
+        complete: () => console.log('complete'),
+      });
   }
 }

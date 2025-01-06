@@ -22,4 +22,15 @@ export class WorkoutService {
   public getWorkoutById(_id: string): Observable<Workout> {
     return this.http.get<Workout>(`${this.apiUrl}/workout/${_id}`);
   }
+
+  public updateWorkout(
+    _id: string,
+    updatedWorkout: Partial<Workout>
+  ): Observable<Workout> {
+    return this.http.patch<Workout>(`${this.apiUrl}/workout`, updatedWorkout);
+  }
+
+  public deleteWorkout(_id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/workout/${_id}`);
+  }
 }

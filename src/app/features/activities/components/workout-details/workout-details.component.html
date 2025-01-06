@@ -4,6 +4,7 @@
   <button (click)="closeWorkoutDetails()" class="close-btn">
     <i class="fa-solid fa-xmark"></i>
   </button>
+
   @for (workout of workouts(); track $index) { @if (workout.workoutConfig; as
   config) {
   <h1>Workout {{ $index + 1 }}</h1>
@@ -12,6 +13,9 @@
     <div>{{ workout.date | date : "MMM d, y, h:mm a" }}</div>
   </div>
   <button class="btn btn-secondary">Edit</button>
+  <button (click)="handleDeleteWorkout(workout._id)" class="btn btn-danger">
+    Delete
+  </button>
 
   @if (config.weight) {
   <workout-details-tab
