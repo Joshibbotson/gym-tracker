@@ -9,7 +9,10 @@
     class="workout-details-container"
     [ngClass]="{ active: selectedWorkoutsService.selectedWorkouts }"
   >
-    <workout-details [workouts]="selectedWorkoutsService.selectedWorkouts!" />
+    <workout-details
+      (reloadPage)="handleDeleteReload($event)"
+      [workouts]="selectedWorkoutsService.selectedWorkouts!"
+    />
   </div>
 </div>
 

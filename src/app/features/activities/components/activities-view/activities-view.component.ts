@@ -1,4 +1,11 @@
-import { Component, inject, OnInit, signal, viewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { YearComponent } from '../year/year.component';
 import { WorkoutService } from '../../services/workout.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -23,8 +30,10 @@ import { NgClass } from '@angular/common';
 })
 export class ActivitiesViewComponent implements OnInit {
   activites = signal<YearActivity[] | null>(null);
+
   private readonly workoutService = inject(WorkoutService);
   private readonly modalService = inject(NgbModal);
+  private readonly cdr = inject(ChangeDetectorRef);
   selectedWorkoutsService = inject(SelectedWorkoutsService);
 
   private readonly destroy$ = new Subject<void>();
@@ -45,9 +54,25 @@ export class ActivitiesViewComponent implements OnInit {
       .getActivities()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (res) => this.activites.set(res),
+        next: (res) => {
+          this.activites.set(res);
+        },
         error: (err) => console.log('err:', err),
       });
+  }
+
+  handleDeleteReload(id: string) {
+    this.checkIfSelectedWorkoutContainsDeleteId(id);
+    this.fetchActivities();
+  }
+
+  checkIfSelectedWorkoutContainsDeleteId(id: string) {
+    const newWorkouts = this.selectedWorkoutsService.selectedWorkouts?.filter(
+      (workout) => workout._id !== id
+    );
+    this.selectedWorkoutsService.selectedWorkouts = newWorkouts?.length
+      ? newWorkouts
+      : undefined;
   }
 
   openCreateWorkoutModal() {

@@ -59,12 +59,10 @@ export class AuthService {
   public login(query: LoginConfig): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/auth/login`, query).pipe(
       tap((res) => {
-        console.log('login res:', res);
         this.setUserInLocalStorage(res);
         this.user.set(res);
       }),
       catchError((err) => {
-        console.log('error at login:', err);
         this.logout();
         return of(err);
       })

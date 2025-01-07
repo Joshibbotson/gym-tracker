@@ -8,6 +8,6 @@ export function credentialsInterceptorInterceptor(
   const newReq = req.clone({
     withCredentials: true,
   });
-  console.log('outgoing request', newReq);
+
   return next(newReq);
 }

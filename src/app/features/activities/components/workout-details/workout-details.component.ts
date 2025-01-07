@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, input } from '@angular/core';
+import { Component, HostListener, inject, input, output } from '@angular/core';
 import { Workout } from '../../types/Workout';
 import { DatePipe } from '@angular/common';
 import { SelectedWorkoutsService } from '../../services/selected-workouts.service';
@@ -14,6 +14,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class WorkoutDetailsComponent {
   workouts = input.required<Workout[]>();
+  reloadPage = output<string>();
   selectedWorkoutsService = inject(SelectedWorkoutsService);
   workoutService = inject(WorkoutService);
   destroy$ = new Subject<void>();
@@ -45,7 +46,7 @@ export class WorkoutDetailsComponent {
       .deleteWorkout(_id)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: () => console.log('deleted'),
+        next: () => this.reloadPage.emit(_id),
         error: (err) => console.log(err),
         complete: () => console.log('complete'),
       });

@@ -16,7 +16,5 @@ export class DayComponent {
 
   handleWorkoutClick() {
     this.selectedWorkoutsService.selectedWorkouts = this.workouts();
-
-    console.log(this.selectedWorkoutsService.selectedWorkouts);
   }
 }
