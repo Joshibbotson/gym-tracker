@@ -62,9 +62,36 @@ export class CreateUpdateWorkoutComponent {
     calfSize: new FormControl(undefined),
   });
 
+  ngOnInit(): void {
+    if (this.workoutToEdit()) {
+      this.updateForm();
+    }
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  private updateForm(): void {
+    this.workoutForm.patchValue({
+      date: this.workoutToEdit()?.date,
+      weight: this.workoutToEdit()?.workoutConfig?.weight,
+      workoutType: this.workoutToEdit()?.workoutConfig?.workoutType,
+      caloriePhase: this.workoutToEdit()?.workoutConfig?.caloriePhase,
+      chestSize: this.workoutToEdit()?.workoutConfig?.chestSize,
+      waistSize: this.workoutToEdit()?.workoutConfig?.waistSize,
+      bicepSize: this.workoutToEdit()?.workoutConfig?.bicepSize,
+      forearmSize: this.workoutToEdit()?.workoutConfig?.forearmSize,
+      thighSize: this.workoutToEdit()?.workoutConfig?.thighSize,
+      calfSize: this.workoutToEdit()?.workoutConfig?.calfSize,
+    });
+    const weight = this.workoutToEdit()?.workoutConfig?.weight;
+    if (weight) {
+      const { stone, lbs } = this.convertLbsToStoneAndLbs(weight);
+      this.stone = stone;
+      this.lbs = lbs;
+    }
   }
 
   /** if  measurementType == 'inches' use convertInchesToCm()*/
@@ -120,6 +147,14 @@ export class CreateUpdateWorkoutComponent {
     const totalLbs = stoneToLbs + additionalLbs;
 
     this.workoutForm.get('weight')?.setValue(totalLbs);
+  }
+
+  convertLbsToStoneAndLbs(totalLbs: number): { stone: number; lbs: number } {
+    const lbsPerStone = 14; // 1 stone = 14 lbs
+    const stone = Math.floor(totalLbs / lbsPerStone);
+    const lbs = totalLbs % lbsPerStone;
+
+    return { stone, lbs };
   }
 
   handleMeasurementTypeChange(measurement: 'inches' | 'cm'): void {

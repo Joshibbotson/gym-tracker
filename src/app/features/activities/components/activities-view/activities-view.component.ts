@@ -1,11 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  inject,
-  OnInit,
-  signal,
-  viewChild,
-} from '@angular/core';
+import { Component, inject, OnInit, signal, viewChild } from '@angular/core';
 import { YearComponent } from '../year/year.component';
 import { WorkoutService } from '../../services/workout.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -15,6 +8,7 @@ import { CreateUpdateWorkoutComponent } from '../../../dashboard/components/crea
 import { SelectedWorkoutsService } from '../../services/selected-workouts.service';
 import { WorkoutDetailsComponent } from '../workout-details/workout-details.component';
 import { NgClass } from '@angular/common';
+import { ActivitiesStateService } from '../../services/activities-state.service';
 
 @Component({
   selector: 'activities-view',
@@ -29,13 +23,12 @@ import { NgClass } from '@angular/common';
   styleUrl: './activities-view.component.scss',
 })
 export class ActivitiesViewComponent implements OnInit {
-  activites = signal<YearActivity[] | null>(null);
-
+  private readonly activitiesStateService = inject(ActivitiesStateService);
   private readonly workoutService = inject(WorkoutService);
   private readonly modalService = inject(NgbModal);
-  private readonly cdr = inject(ChangeDetectorRef);
   selectedWorkoutsService = inject(SelectedWorkoutsService);
 
+  activites = this.activitiesStateService.activites;
   private readonly destroy$ = new Subject<void>();
 
   createWorkoutConfig = viewChild('createWorkoutConfig');
@@ -55,7 +48,7 @@ export class ActivitiesViewComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
-          this.activites.set(res);
+          this.activitiesStateService.activites.set(res);
         },
         error: (err) => console.log('err:', err),
       });
