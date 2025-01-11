@@ -3,12 +3,13 @@ import { inject, Injectable } from '@angular/core';
 import { Workout } from '../types/Workout';
 import { Observable } from 'rxjs';
 import { YearActivity } from '../types/Activities';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WorkoutService {
-  private readonly apiUrl: string = 'http://localhost:8888';
+  private readonly apiUrl: string = environment.apiUrl;
   private readonly http = inject(HttpClient);
 
   public createWorkout(workout: Workout): Observable<Workout> {
@@ -27,6 +28,7 @@ export class WorkoutService {
     _id: string,
     updatedWorkout: Partial<Workout>
   ): Observable<Workout> {
+    updatedWorkout = { ...updatedWorkout, _id };
     return this.http.patch<Workout>(`${this.apiUrl}/workout`, updatedWorkout);
   }
 

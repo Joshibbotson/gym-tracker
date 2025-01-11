@@ -95,7 +95,7 @@ export class CreateUpdateWorkoutComponent {
   }
 
   /** if  measurementType == 'inches' use convertInchesToCm()*/
-  onWorkoutSave(): void {
+  onCreateWorkout(): void {
     const isInches = this.measurementType() === 'inches';
     const workoutValues = this.workoutForm.value;
     const sizeKeys = [
@@ -121,6 +121,45 @@ export class CreateUpdateWorkoutComponent {
     this.loading.set(true);
     this.workoutService
       .createWorkout(convertedWorkoutObject as Workout)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => this.reloadPage.emit(),
+        error: (err) => {
+          console.log('err:', err), this.loading.set(false);
+        },
+        complete: () => this.loading.set(false),
+      });
+  }
+
+  onUpdateWorkout(): void {
+    const isInches = this.measurementType() === 'inches';
+    const workoutValues = this.workoutForm.value;
+    const sizeKeys = [
+      'chestSize',
+      'waistSize',
+      'bicepSize',
+      'forearmSize',
+      'thighSize',
+      'calfSize',
+    ];
+    const convertedWorkoutValues = Object.entries(workoutValues).map((val) => {
+      if (sizeKeys.includes(val[0]) && typeof val[1] === 'number') {
+        val[1] = isInches ? this.convertInchesToCm(val[1]) : val[1];
+      }
+      return val;
+    });
+
+    const convertedWorkoutObject = {
+      ...Object.fromEntries(convertedWorkoutValues),
+      date: this.convertDateToDateTimeNow(this.workoutForm.get('date')?.value),
+    };
+
+    this.loading.set(true);
+    this.workoutService
+      .updateWorkout(
+        this.workoutToEdit()!._id,
+        convertedWorkoutObject as Workout
+      )
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => this.reloadPage.emit(),

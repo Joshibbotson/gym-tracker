@@ -23,7 +23,8 @@ type User = {
 })
 export class AuthService {
   // replace with an env variable for production build.
-  private readonly apiUrl: string = 'http://localhost:8888';
+  private readonly apiUrl: string =
+    'https://gym-tracker-backend-production-3816.up.railway.app:8888';
   private readonly http = inject(HttpClient);
 
   public user = signal<User | null>(null);

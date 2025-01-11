@@ -213,7 +213,10 @@
   </form>
 </div>
 <div class="modal-footer">
-  <button (click)="onWorkoutSave()" class="btn btn-sm btn-primary">
+  <button
+    (click)="workoutToEdit() ? onUpdateWorkout() : onCreateWorkout()"
+    class="btn btn-sm btn-primary"
+  >
     Save @if (loading()) {
     <i class="fas fa-spinner fa-spin"></i>
 
