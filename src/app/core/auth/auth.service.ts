@@ -28,6 +28,13 @@ export class AuthService {
 
   public user = signal<User | null>(null);
 
+  initUser(): void {
+    const user = this.getUserFromLocalStorage();
+    if (user) {
+      this.User = user;
+    }
+  }
+
   get User(): User | null {
     return this.user();
   }

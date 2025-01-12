@@ -10,8 +10,4 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent {
   title = 'gym-tracker';
-
-  constructor() {
-    console.log(environment.production);
-  }
 }
