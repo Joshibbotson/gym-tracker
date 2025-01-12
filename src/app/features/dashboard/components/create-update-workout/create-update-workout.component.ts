@@ -18,7 +18,11 @@ import { WorkoutType } from '../../../activities/enums/WorkoutType.enum';
 import { CaloriePhase } from '../../../activities/enums/CaloriePhase.enum';
 import { WorkoutService } from '../../../activities/services/workout.service';
 import { Subject, takeUntil } from 'rxjs';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbActiveModal,
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'create-update-workout',
@@ -30,6 +34,7 @@ export class CreateUpdateWorkoutComponent {
   workoutToEdit = input<Workout>();
   reloadPage = output<void>();
   workoutService = inject(WorkoutService);
+  modalService = inject(NgbModal);
 
   weightType = signal<'Stone' | 'lbs'>('Stone');
   measurementType = signal<'cm' | 'inches'>('inches');
@@ -216,5 +221,9 @@ export class CreateUpdateWorkoutComponent {
     );
 
     return combinedDate;
+  }
+
+  closeModal(): void {
+    this.modalService.dismissAll();
   }
 }

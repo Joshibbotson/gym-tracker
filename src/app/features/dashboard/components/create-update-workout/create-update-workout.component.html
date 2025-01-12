@@ -213,6 +213,9 @@
   </form>
 </div>
 <div class="modal-footer">
+  <button (click)="closeModal()" class="btn btn-sm btn-secondary">
+    Cancel
+  </button>
   <button
     (click)="workoutToEdit() ? onUpdateWorkout() : onCreateWorkout()"
     class="btn btn-sm btn-primary"

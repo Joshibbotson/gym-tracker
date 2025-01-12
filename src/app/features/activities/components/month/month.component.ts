@@ -52,11 +52,6 @@ export class MonthComponent {
 
     // Map workouts to their respective dates
     const workoutMap: Map<string, Workout[]> = new Map();
-    // workouts.map((workout) => [
-    //   format(new Date(workout.date), 'yyyy-MM-dd'),
-    //   workout,
-    // ])
-
     for (let i = 0; i < workouts.length; i++) {
       const key = format(new Date(workouts[i].date), 'yyyy-MM-dd');
       const existingWorkouts = workoutMap.get(key);
@@ -66,8 +61,6 @@ export class MonthComponent {
         workoutMap.set(key, [workouts[i]]);
       }
     }
-
-    console.log('workoutMap:', workoutMap);
 
     // Fill the grid
     let weekIndex = 0;
@@ -83,7 +76,6 @@ export class MonthComponent {
         weekIndex++;
       }
     }
-    // console.log('grid:', grid);
     this.calendarGrid = grid;
   }
 }

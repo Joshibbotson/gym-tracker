@@ -1,5 +1,5 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { AuthService, User } from '../../auth/auth.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
@@ -9,15 +9,10 @@ import { Subject } from 'rxjs';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent {
   authService = inject(AuthService);
   router = inject(Router);
   destroy$ = new Subject<void>();
-  user = signal<User | null>(null);
-
-  ngOnInit(): void {
-    this.user.set(this.authService.User);
-  }
 
   handleLogout() {
     this.authService.logout();
