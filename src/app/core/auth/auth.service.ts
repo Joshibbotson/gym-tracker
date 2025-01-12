@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 export type LoginConfig = {
   email: string;
@@ -22,9 +23,7 @@ type User = {
   providedIn: 'root',
 })
 export class AuthService {
-  // replace with an env variable for production build.
-  private readonly apiUrl: string =
-    'https://gym-tracker-backend-production-3816.up.railway.app:8888';
+  private readonly apiUrl: string = environment.apiUrl;
   private readonly http = inject(HttpClient);
 
   public user = signal<User | null>(null);
