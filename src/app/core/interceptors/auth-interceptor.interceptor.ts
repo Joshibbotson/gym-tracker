@@ -31,6 +31,6 @@ export const authInterceptor: HttpInterceptorFn = (
 };
 
 function handle401Error(router: Router, authService: AuthService): void {
-  authService.logout();
-  router.navigate(['/login']);
+  // authService.logout();
+  // router.navigate(['/login']);
 }
