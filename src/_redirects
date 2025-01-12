@@ -1,5 +1,1 @@
-{
-  "glob": "_redirects",
-  "input": "src",
-  "output": "/"
-}
+/* /index.html 200
