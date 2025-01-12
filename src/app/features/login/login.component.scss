@@ -3,3 +3,26 @@
 input:disabled {
   color: $offWhite;
 }
+.main-container {
+  form {
+    min-width: 20rem;
+    max-width: 50%;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .main-container {
+    background-color: $bgDark;
+    color: $offWhite;
+
+    button {
+      background-color: $bgDark;
+      border: 1px solid $offWhite;
+    }
+
+    button:hover {
+      background-color: $offWhite;
+      color: $bgDark;
+    }
+  }
+}
