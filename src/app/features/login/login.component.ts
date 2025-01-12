@@ -9,23 +9,26 @@ import { AuthService } from '../../core/auth/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
-    selector: 'login',
-    imports: [ReactiveFormsModule],
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.scss'
+  selector: 'login',
+  imports: [ReactiveFormsModule],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
   authService = inject(AuthService);
   route = inject(Router);
 
-  loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-  });
-
   loading = signal<boolean>(false);
   $destroy = new Subject<void>();
 
+  loginForm = new FormGroup({
+    email: new FormControl({ value: '', disabled: this.loading() }, [
+      Validators.required,
+    ]),
+    password: new FormControl({ value: '', disabled: this.loading() }, [
+      Validators.required,
+    ]),
+  });
   ngOnInit(): void {}
 
   handleLogin(): void {
